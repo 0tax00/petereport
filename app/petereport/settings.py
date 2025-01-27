@@ -128,6 +128,8 @@ LANGUAGES = (
     ('en', _('English')),
     ('es', _('Spanish')),
     ('fr', _('French')),
+    ('pt', _('Portuguese')),
+
 )
 
 # Static files (CSS, JavaScript, Images)

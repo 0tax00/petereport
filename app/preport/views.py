@@ -13,6 +13,11 @@ from django.utils.functional import Promise
 from django.utils.encoding import force_str
 from django.core.serializers.json import DjangoJSONEncoder
 import django.db
+import logging
+
+logger = logging.getLogger('preport')
+
+
 
 # Forms
 from .forms import NewProductForm, NewReportForm, NewFindingForm, NewAppendixForm, NewFindingTemplateForm, AddUserForm, NewCWEForm, NewFieldForm, NewSettingsForm, NewCustomerForm, NewOWASPForm
@@ -593,6 +598,7 @@ def report_add(request):
         form.fields['outofscope'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['methodology'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['recommendation'].initial = PETEREPORT_TEMPLATES['initial_text']
+        form.fields['narrative'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['report_date'].initial = today
     return render(request, 'reports/report_add.html', {
         'form': form
@@ -1031,174 +1037,289 @@ def reportdownloadhtml(request, template, pk):
 
 @login_required
 def reportdownloadpdf(request, template, pk):
+    try:
+        logger.debug(f"Iniciando a função reportdownloadpdf com template: {template} e pk: {pk}")
 
-    template_dir = os.path.join(TEMPLATES_ROOT, 'pdf')
-    template_pdf_dir = os.path.join(template_dir, template)
-    template_pdf_dir_pp = pathlib.PurePath(template_pdf_dir)
+        template_dir = os.path.join(TEMPLATES_ROOT, 'pdf')
+        template_pdf_dir = os.path.join(template_dir, template)
+        template_pdf_dir_pp = pathlib.PurePath(template_pdf_dir)
 
-    if template_pdf_dir_pp.is_relative_to(template_dir):
+        logger.debug(f"Verificando se {template_pdf_dir_pp} é relativo a {template_dir}")
+        if template_pdf_dir_pp.is_relative_to(template_dir):
 
-        # DB
-        DB_report_query = get_object_or_404(DB_Report, pk=pk)
-        DB_finding_query = DB_Finding.objects.filter(report=DB_report_query).order_by('cvss_score').reverse()
+            # DB
+            logger.debug("Buscando objeto DB_Report")
+            DB_report_query = get_object_or_404(DB_Report, pk=pk)
+            logger.debug(f"Objeto DB_Report encontrado: {DB_report_query}")
 
-        # Datetime
-        now = datetime.datetime.utcnow()
-        report_date = DB_report_query.report_date.strftime('%d-%m-%Y')
+            logger.debug("Buscando objetos DB_Finding relacionados")
+            DB_finding_query = DB_Finding.objects.filter(report=DB_report_query).order_by('cvss_score').reverse()
+            logger.debug(f"Número de DB_Finding encontrados: {DB_finding_query.count()}")
 
-        # PDF filename
-        name_file = bleach.clean(PETEREPORT_TEMPLATES['report_pdf_name'] + '_' + DB_report_query.title + '_' +  str(datetime.datetime.utcnow().strftime('%Y%m%d%H%M'))).replace('/', '') + '.pdf'
+            # Datetime
+            now = datetime.datetime.utcnow()
+            report_date = DB_report_query.report_date.strftime('%d-%m-%Y')
+            logger.debug(f"Data do relatório: {report_date}")
 
-        # INIT
-        template_findings = template_appendix = pdf_finding_summary = ''
-        md_author = DB_Settings.objects.get().company_name
-        md_subject = DB_Settings.objects.get().report_subject
-        md_website = DB_Settings.objects.get().company_website
-        
-        counter_finding = counter_finding_critical = counter_finding_high = counter_finding_medium = counter_finding_low = counter_finding_info = 0
-        title_background_image = os.path.join(template_pdf_dir, PETEREPORT_TEMPLATES['report_pdf_title_background'])
-        pages_background_image = os.path.join(template_pdf_dir, PETEREPORT_TEMPLATES['report_pdf_pages_background'])
+            # PDF filename
+            name_file = bleach.clean(
+                f"{PETEREPORT_TEMPLATES['report_pdf_name']}_{DB_report_query.title}_{now.strftime('%Y%m%d%H%M')}"
+            ).replace('/', '') + '.pdf'
+            logger.debug(f"Nome do arquivo PDF gerado: {name_file}")
 
-        # Appendix
-        for finding in DB_finding_query:
-            if finding.appendix_finding.all():
-                template_appendix = _('# Additional Notes') + "\n\n"
+            # INIT
+            template_findings = template_appendix = pdf_finding_summary = ''
+            md_author = DB_Settings.objects.get().company_name
+            md_subject = DB_Settings.objects.get().report_subject
+            md_website = DB_Settings.objects.get().company_website
 
-        # IMAGES
-        report_executive_summary_image = DB_report_query.executive_summary_image
-        report_cwe_categories_image = DB_report_query.cwe_categories_summary_image
-        report_owasp_categories_image = DB_report_query.owasp_categories_summary_image
+            logger.debug("Inicializando contadores de findings")
+            counter_finding = counter_finding_critical = counter_finding_high = counter_finding_medium = counter_finding_low = counter_finding_info = 0
+            title_background_image = os.path.join(template_pdf_dir, PETEREPORT_TEMPLATES['report_pdf_title_background'])
+            pages_background_image = os.path.join(template_pdf_dir, PETEREPORT_TEMPLATES['report_pdf_pages_background'])
+            logger.debug(f"Imagem de fundo do título: {title_background_image}")
+            logger.debug(f"Imagem de fundo das páginas: {pages_background_image}")
 
-        for finding in DB_finding_query:
-            # Custom fields
-            template_custom_fields = ""
-
-            # Only reporting Critical/High/Medium/Low/Info findings
-            if finding.severity == 'None':
-                pass
-            else:
-                counter_finding += 1
-                template_appendix_in_finding = template_attackflow_in_finding = ''
-
-                if finding.severity == 'Critical':
-                    counter_finding_critical += 1
-                    icon_finding = 'important'
-                    severity_color = 'criticalcolor'
-                    severity_box = 'criticalbox'
-                elif finding.severity == 'High':
-                    counter_finding_high += 1
-                    icon_finding = 'highnote'
-                    severity_color = 'highcolor'
-                    severity_box = 'highbox'
-                elif finding.severity == 'Medium':
-                    counter_finding_medium += 1
-                    icon_finding = 'mediumnote'
-                    severity_color = 'mediumcolor'
-                    severity_box = 'mediumbox'
-                elif finding.severity == 'Low':
-                    counter_finding_low += 1
-                    icon_finding = 'lownote'
-                    severity_color = 'lowcolor'
-                    severity_box = 'lowbox'
-                else:
-                    counter_finding_info += 1
-                    icon_finding = 'debugnote'
-                    severity_color = 'debugcolor'
-                    severity_box = 'infobox'
-
-                # Summary table
-                pdf_finding_summary += render_to_string(os.path.join(template_pdf_dir, 'pdf_finding_summary.md'),{'finding': finding,'counter_finding': counter_finding, 'severity_box': severity_box})
-                
-                severity_color_finding = "\\textcolor{" + f"{severity_color}" +"}{" + f"{finding.severity}" + "}"
-
-                # Custom fields
-                if finding.custom_field_finding.all():
-
-                    for field_in_finding in finding.custom_field_finding.all():
-                        md_custom_fields = f"**{bleach.clean(field_in_finding.title)}**\n\n{bleach.clean(field_in_finding.description)}\n\n"
-
-                        template_custom_fields += ''.join(md_custom_fields)
-
-                # appendix
+            # Appendix
+            logger.debug("Processando appendices")
+            for finding in DB_finding_query:
                 if finding.appendix_finding.all():
+                    template_appendix = _('# Additional Notes') + "\n\n"
 
-                    template_appendix_in_finding = _('**Additional notes**') + "\n\n"
+            # IMAGES
+            report_executive_summary_image = DB_report_query.executive_summary_image
+            report_cwe_categories_image = DB_report_query.cwe_categories_summary_image
+            report_owasp_categories_image = DB_report_query.owasp_categories_summary_image
 
-                    for appendix_in_finding in finding.appendix_finding.all():
+            logger.debug("Processando findings")
+            for finding in DB_finding_query:
+                # Custom fields
+                template_custom_fields = ""
 
-                        pdf_appendix = render_to_string(os.path.join(template_pdf_dir, 'pdf_appendix.md'),{'appendix_in_finding': appendix_in_finding})
-
-                        template_appendix += ''.join(pdf_appendix)
-                        template_appendix_in_finding += ''.join(bleach.clean(appendix_in_finding.title) + "\n")
-
-                    template_appendix_in_finding += ''.join("\\pagebreak")
-
+                # Only reporting Critical/High/Medium/Low/Info findings
+                if finding.severity == 'None':
+                    logger.debug(f"Finding {finding.id} ignorado devido à severidade 'None'")
+                    continue
                 else:
-                    template_appendix_in_finding += ''.join("\\pagebreak")
+                    counter_finding += 1
+                    template_appendix_in_finding = template_attackflow_in_finding = ''
 
-                # attack flow
-                if finding.attackflow_finding.all():
+                    if finding.severity == 'Critical':
+                        counter_finding_critical += 1
+                        icon_finding = 'important'
+                        severity_color = 'criticalcolor'
+                        severity_box = 'criticalbox'
+                    elif finding.severity == 'High':
+                        counter_finding_high += 1
+                        icon_finding = 'highnote'
+                        severity_color = 'highcolor'
+                        severity_box = 'highbox'
+                    elif finding.severity == 'Medium':
+                        counter_finding_medium += 1
+                        icon_finding = 'mediumnote'
+                        severity_color = 'mediumcolor'
+                        severity_box = 'mediumbox'
+                    elif finding.severity == 'Low':
+                        counter_finding_low += 1
+                        icon_finding = 'lownote'
+                        severity_color = 'lowcolor'
+                        severity_box = 'lowbox'
+                    else:
+                        counter_finding_info += 1
+                        icon_finding = 'debugnote'
+                        severity_color = 'debugcolor'
+                        severity_box = 'infobox'
 
-                    template_attackflow_in_finding = _('**Attack Flow**') + "\n\n"
+                    logger.debug(f"Processing finding {finding.id} com severidade {finding.severity}")
 
-                    for attackflow_in_finding in finding.attackflow_finding.all():
+                    # Summary table
+                    try:
+                        pdf_finding_summary += render_to_string(
+                            os.path.join(template_pdf_dir, 'pdf_finding_summary.md'),
+                            {
+                                'finding': finding,
+                                'counter_finding': counter_finding,
+                                'severity_box': severity_box
+                            }
+                        )
+                        logger.debug(f"Summary table updated for finding {finding.id}")
+                    except Exception as e:
+                        logger.error(f"Erro ao renderizar pdf_finding_summary para finding {finding.id}: {e}", exc_info=True)
 
-                        pdf_attackflow = render_to_string(os.path.join(template_pdf_dir, 'pdf_attackflow.md'), {'attackflow_in_finding': attackflow_in_finding})
-                
-                        template_attackflow_in_finding += ''.join(pdf_attackflow + "\n")
+                    severity_color_finding = f"\\textcolor{{{severity_color}}}{{{finding.severity}}}"
 
-                    template_attackflow_in_finding += ''.join("\\pagebreak")
+                    # Custom fields
+                    if finding.custom_field_finding.all():
+                        for field_in_finding in finding.custom_field_finding.all():
+                            md_custom_fields = f"**{bleach.clean(field_in_finding.title)}**\n\n{bleach.clean(field_in_finding.description)}\n\n"
+                            template_custom_fields += ''.join(md_custom_fields)
 
-                else:
-                    template_attackflow_in_finding += ''.join("\\pagebreak")
+                    # appendix
+                    if finding.appendix_finding.all():
+                        template_appendix_in_finding = _('**Additional notes**') + "\n\n"
+                        for appendix_in_finding in finding.appendix_finding.all():
+                            try:
+                                pdf_appendix = render_to_string(
+                                    os.path.join(template_pdf_dir, 'pdf_appendix.md'),
+                                    {'appendix_in_finding': appendix_in_finding}
+                                )
+                                template_appendix += ''.join(pdf_appendix)
+                                template_appendix_in_finding += ''.join(bleach.clean(appendix_in_finding.title) + "\n")
+                            except Exception as e:
+                                logger.error(f"Erro ao renderizar pdf_appendix para appendix {appendix_in_finding.id}: {e}", exc_info=True)
 
-                # finding
-                pdf_finding = render_to_string(os.path.join(template_pdf_dir, 'pdf_finding.md'), {'finding': finding, 'icon_finding': icon_finding, 'severity_color': severity_color, 'severity_color_finding': severity_color_finding, 'template_appendix_in_finding': template_appendix_in_finding, 'template_attackflow_in_finding': template_attackflow_in_finding, 'template_custom_fields': template_custom_fields})
+                        template_appendix_in_finding += ''.join("\\pagebreak")
+                    else:
+                        template_appendix_in_finding += ''.join("\\pagebreak")
 
-                template_findings += ''.join(pdf_finding)
+                    # attack flow
+                    if finding.attackflow_finding.all():
+                        template_attackflow_in_finding = _('**Attack Flow**') + "\n\n"
+                        for attackflow_in_finding in finding.attackflow_finding.all():
+                            try:
+                                pdf_attackflow = render_to_string(
+                                    os.path.join(template_pdf_dir, 'pdf_attackflow.md'),
+                                    {'attackflow_in_finding': attackflow_in_finding}
+                                )
+                                template_attackflow_in_finding += ''.join(pdf_attackflow + "\n")
+                            except Exception as e:
+                                logger.error(f"Erro ao renderizar pdf_attackflow para attackflow {attackflow_in_finding.id}: {e}", exc_info=True)
+                        template_attackflow_in_finding += ''.join("\\pagebreak")
+                    else:
+                        template_attackflow_in_finding += ''.join("\\pagebreak")
 
+                    # finding
+                    try:
+                        pdf_finding = render_to_string(
+                            os.path.join(template_pdf_dir, 'pdf_finding.md'),
+                            {
+                                'finding': finding,
+                                'icon_finding': icon_finding,
+                                'severity_color': severity_color,
+                                'severity_color_finding': severity_color_finding,
+                                'template_appendix_in_finding': template_appendix_in_finding,
+                                'template_attackflow_in_finding': template_attackflow_in_finding,
+                                'template_custom_fields': template_custom_fields
+                            }
+                        )
+                        template_findings += ''.join(pdf_finding)
+                        logger.debug(f"Rendered pdf_finding para finding {finding.id}")
+                    except Exception as e:
+                        logger.error(f"Erro ao renderizar pdf_finding para finding {finding.id}: {e}", exc_info=True)
 
-        pdf_markdown_report = render_to_string(os.path.join(template_pdf_dir, 'pdf_header.yaml'), {'DB_report_query': DB_report_query, 'md_author': md_author, 'report_date': report_date, 'md_subject': md_subject, 'md_website': md_website, 'report_pdf_language': PETEREPORT_TEMPLATES['report_pdf_language'], 'titlepagecolor': PETEREPORT_TEMPLATES['titlepage-color'], 'titlepagetextcolor': PETEREPORT_TEMPLATES['titlepage-text-color'], 'titlerulecolor': PETEREPORT_TEMPLATES['titlepage-rule-color'], 'titlepageruleheight': PETEREPORT_TEMPLATES['titlepage-rule-height'], 'title_background': title_background_image, 'pages_background': pages_background_image })
+            # Rendering the markdown report
+            try:
+                pdf_markdown_report = render_to_string(
+                    os.path.join(template_pdf_dir, 'pdf_header.yaml'),
+                    {
+                        'DB_report_query': DB_report_query,
+                        'md_author': md_author,
+                        'report_date': report_date,
+                        'md_subject': md_subject,
+                        'md_website': md_website,
+                        'report_pdf_language': PETEREPORT_TEMPLATES['report_pdf_language'],
+                        'titlepagecolor': PETEREPORT_TEMPLATES['titlepage-color'],
+                        'titlepagetextcolor': PETEREPORT_TEMPLATES['titlepage-text-color'],
+                        'titlerulecolor': PETEREPORT_TEMPLATES['titlepage-rule-color'],
+                        'titlepageruleheight': PETEREPORT_TEMPLATES['titlepage-rule-height'],
+                        'title_background': title_background_image,
+                        'pages_background': pages_background_image
+                    }
+                )
+                logger.debug("Rendered pdf_header.yaml com sucesso")
+            except Exception as e:
+                logger.error(f"Erro ao renderizar pdf_header.yaml: {e}", exc_info=True)
+                raise
 
-        pdf_markdown_report += render_to_string(os.path.join(template_pdf_dir, 'pdf_report.md'), {'DB_report_query': DB_report_query, 'report_executive_summary_image': report_executive_summary_image, 'report_cwe_categories_image': report_cwe_categories_image, 'report_owasp_categories_image': report_owasp_categories_image, 'pdf_finding_summary': pdf_finding_summary, 'template_findings': template_findings, 'template_appendix': template_appendix})
+            try:
+                pdf_markdown_report += render_to_string(
+                    os.path.join(template_pdf_dir, 'pdf_report.md'),
+                    {
+                        'DB_report_query': DB_report_query,
+                        'report_executive_summary_image': report_executive_summary_image,
+                        'report_cwe_categories_image': report_cwe_categories_image,
+                        'report_owasp_categories_image': report_owasp_categories_image,
+                        'pdf_finding_summary': pdf_finding_summary,
+                        'template_findings': template_findings,
+                        'template_appendix': template_appendix
+                    }
+                )
+                logger.debug("Rendered pdf_report.md com sucesso")
+            except Exception as e:
+                logger.error(f"Erro ao renderizar pdf_report.md: {e}", exc_info=True)
+                raise
 
-        final_markdown = textwrap.dedent(pdf_markdown_report)
-        final_markdown_output = mark_safe(final_markdown)
+            final_markdown = textwrap.dedent(pdf_markdown_report)
+            final_markdown_output = mark_safe(final_markdown)
 
-        pdf_file_output = os.path.join(REPORTS_MEDIA_ROOT, 'pdf', name_file)
+            pdf_file_output = os.path.join(REPORTS_MEDIA_ROOT, 'pdf', name_file)
+            logger.debug(f"Caminho final do PDF: {pdf_file_output}")
 
-        PDF_HEADER_FILE = os.path.join(template_pdf_dir, 'pdf_header.tex')
+            PDF_HEADER_FILE = os.path.join(template_pdf_dir, 'pdf_header.tex')
+            PETEREPORT_LATEX_FILE = os.path.join(template_pdf_dir, PETEREPORT_TEMPLATES['pdf_latex_template'])
 
-        PETEREPORT_LATEX_FILE = os.path.join(template_pdf_dir, PETEREPORT_TEMPLATES['pdf_latex_template'])
-        
-        # Remove Unicode characters, not parsed by pdflatex
-        final_markdown_output = final_markdown_output.encode(encoding="utf-8", errors="ignore").decode()
+            # Remove Unicode characters, not parsed by pdflatex
+            final_markdown_output = final_markdown_output.encode(encoding="utf-8", errors="ignore").decode()
 
-        pypandoc.convert_text(final_markdown_output,
-                                to='pdf',
-                                outputfile=pdf_file_output,
-                                format='md',
-                                extra_args=['-H', PDF_HEADER_FILE,
-                                            '--from', 'markdown+yaml_metadata_block+raw_html',
-                                            '--template', PETEREPORT_LATEX_FILE,
-                                            '--table-of-contents',
-                                            '--toc-depth', '4',
-                                            '--number-sections',
-                                            '--highlight-style', 'breezedark',
-                                            '--filter', 'pandoc-latex-environment',
-                                            '--pdf-engine', PETEREPORT_MARKDOWN['pdf_engine'],
-                                            '--listings'])
+            try:
+                logger.debug("Iniciando a conversão de markdown para PDF com pypandoc")
+                pypandoc.convert_text(
+                    final_markdown_output,
+                    to='pdf',
+                    outputfile=pdf_file_output,
+                    format='md',
+                    extra_args=[
+                        '-H', PDF_HEADER_FILE,
+                        '--from', 'markdown+yaml_metadata_block+raw_html',
+                        '--template', PETEREPORT_LATEX_FILE,
+                        '--table-of-contents',
+                        '--toc-depth', '4',
+                        '--number-sections',
+                        '--highlight-style', 'breezedark',
+                        '--filter', 'pandoc-latex-environment',
+                        '--pdf-engine', PETEREPORT_MARKDOWN['pdf_engine'],
+                        '--listings'
+                    ]
+                )
+                logger.debug(f"Conversão para PDF concluída: {pdf_file_output}")
+            except Exception as e:
+                logger.error(f"Erro durante a conversão para PDF: {e}", exc_info=True)
+                raise
 
-        deliverable = DB_Deliverable(report=DB_report_query, filename=name_file, generation_date=now, filetemplate=template, filetype='pdf')
-        deliverable.save()
+            try:
+                deliverable = DB_Deliverable(
+                    report=DB_report_query,
+                    filename=name_file,
+                    generation_date=now,
+                    filetemplate=template,
+                    filetype='pdf'
+                )
+                deliverable.save()
+                logger.debug(f"Objeto DB_Deliverable salvo: {deliverable}")
+            except Exception as e:
+                logger.error(f"Erro ao salvar DB_Deliverable: {e}", exc_info=True)
+                raise
 
-        if os.path.exists(pdf_file_output):
-                with open(pdf_file_output, 'rb') as fh:
-                    response = HttpResponse(fh.read(), content_type="application/pdf")
-                    response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(name_file)
-                    return response
+            if os.path.exists(pdf_file_output):
+                try:
+                    with open(pdf_file_output, 'rb') as fh:
+                        response = HttpResponse(fh.read(), content_type="application/pdf")
+                        response['Content-Disposition'] = f'attachment; filename={os.path.basename(name_file)}'
+                        logger.debug(f"Retornando resposta HTTP com o PDF: {name_file}")
+                        return response
+                except Exception as e:
+                    logger.error(f"Erro ao ler o arquivo PDF para a resposta: {e}", exc_info=True)
+                    raise
 
-    raise Http404
+        else:
+            logger.warning(f"Tentativa de acessar um diretório fora do permitido: {template_pdf_dir_pp}")
+
+    except Http404 as e:
+        logger.error(f"Http404 levantado na função reportdownloadpdf: {e}", exc_info=True)
+        raise
+    except Exception as e:
+        logger.critical(f"Erro inesperado na função reportdownloadpdf: {e}", exc_info=True)
+        return HttpResponseServerError("Erro interno no servidor")
     
 
 
@@ -1420,6 +1541,7 @@ def finding_add(request,pk):
         form.fields['description'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['location'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['impact'].initial = PETEREPORT_TEMPLATES['initial_text']
+        form.fields['business_impact'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['recommendation'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['references'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['poc'].initial = PETEREPORT_TEMPLATES['initial_text']
@@ -1531,6 +1653,7 @@ def downloadfindingscsv(request,pk):
             finding_poc_encoded = finding.poc.encode("ascii", "ignore").decode()
             finding_location_encoded = finding.location.encode("ascii", "ignore").decode()
             finding_impact_encoded = finding.impact.encode("ascii", "ignore").decode()
+            finding_business_impact_encoded = finding.business_impact.encode("ascii", "ignore").decode()
             finding_recommendation_encoded = finding.recommendation.encode("ascii", "ignore").decode()
             finding_references_encoded = finding.references.encode("ascii", "ignore").decode()
             appendix_title_encoded = appendix_title.encode("ascii", "ignore").decode()
@@ -1546,6 +1669,7 @@ def downloadfindingscsv(request,pk):
                             finding_poc_encoded,
                             finding_location_encoded,
                             finding_impact_encoded,
+                            finding_business_impact_encoded,
                             finding_recommendation_encoded,
                             finding_references_encoded,
                             appendix_title_encoded, appendix_description_encoded])
@@ -1593,6 +1717,7 @@ def upload_csv_findings(request,pk):
         f_description = header.index("Description")
         f_location = header.index("Location")
         f_impact = header.index("Impact")
+        f_business_impact = header.index("Business Impact")
         f_recommendation = header.index("Recommendation")
         f_ref = header.index("References")
         f_appendix = header.index("Appendix")
@@ -1612,18 +1737,19 @@ def upload_csv_findings(request,pk):
             fdescription = row[f_description]
             flocation = row[f_location]
             fimpact = row[f_impact]
+            fbusiness_impact = row[f_business_impact]
             frecommendation = row[f_recommendation]
             fref = row[f_ref]
             fappendix = row[f_appendix]
             fappendixdescription = row[f_appendix_description]
 
-            List.append([fid,ftitle,fstatus,fseverity,fcvss_score,fcvss,fcwe,fowasp,fdescription,flocation,fimpact,frecommendation,fref,fappendix,fappendixdescription])
+            List.append([fid,ftitle,fstatus,fseverity,fcvss_score,fcvss,fcwe,fowasp,fdescription,flocation,fimpact, f_business_impact,frecommendation,fref,fappendix,fappendixdescription])
 
             DB_cwe = get_object_or_404(DB_CWE, cwe_id=fcwe)
             DB_owasp = get_object_or_404(DB_OWASP, owasp_full_id=fowasp)
 
             # Save finding
-            finding_to_DB = DB_Finding(report=DB_report_query, finding_id=fid, title=ftitle, status=fstatus, severity=fseverity, cvss_vector=fcvss_score, cvss_score=fcvss, description=fdescription, location=flocation, impact=fimpact, recommendation=frecommendation, references=fref, cwe=DB_cwe, owasp=DB_owasp)
+            finding_to_DB = DB_Finding(report=DB_report_query, finding_id=fid, title=ftitle, status=fstatus, severity=fseverity, cvss_vector=fcvss_score, cvss_score=fcvss, description=fdescription, location=flocation, impact=fimpact, business_impact=fbusiness_impact, recommendation=frecommendation, references=fref, cwe=DB_cwe, owasp=DB_owasp)
             finding_to_DB.save()
 
             # Save appendix
@@ -1744,6 +1870,7 @@ def defectdojo_import(request,pk,ddpk):
         finding_description = jsondata['description'] or ""
         finding_mitigation= jsondata['mitigation'] or ""
         finding_impact = jsondata['impact'] or ""
+        finding_business_impact = jsondata['business_impact'] or ""
         finding_steps_to_reproduce = jsondata['steps_to_reproduce'] or ""
         finding_references = jsondata['references'] or ""
         finding_hash_code = jsondata['hash_code'] or uuid.uuid4()
@@ -1754,7 +1881,7 @@ def defectdojo_import(request,pk,ddpk):
         cweDB = DB_CWE.objects.filter(cwe_id=finding_cwe).first() or DB_CWE.objects.filter(cwe_id=0).first()
 
         #Save Finding
-        finding_to_DB = DB_Finding(report=DB_report_query, finding_id=finding_hash_code, status = 'Open', title=finding_title, severity=finding_severity, cvss_vector=finding_cvssv3, cvss_score=finding_cvssv3_score, description=finding_final_description, location=finding_file_path, impact=finding_impact, recommendation=finding_mitigation, references=finding_references, cwe=cweDB)
+        finding_to_DB = DB_Finding(report=DB_report_query, finding_id=finding_hash_code, status = 'Open', title=finding_title, severity=finding_severity, cvss_vector=finding_cvssv3, cvss_score=finding_cvssv3_score, description=finding_final_description, location=finding_file_path, impact=finding_impact, business_impact=finding_business_impact, recommendation=finding_mitigation, references=finding_references, cwe=cweDB)
         finding_to_DB.save()
 
     return redirect('report_view', pk=pk)
@@ -1788,6 +1915,7 @@ def defectdojo_import_finding(request,pk,ddpk):
     finding_description = jsondata['description'] or ""
     finding_mitigation= jsondata['mitigation'] or ""
     finding_impact = jsondata['impact'] or ""
+    finding_business_impact = jsondata['business_impact'] or ""
     finding_steps_to_reproduce = jsondata['steps_to_reproduce'] or ""
     finding_references = jsondata['references'] or ""
     finding_hash_code = jsondata['hash_code'] or uuid.uuid4()
@@ -1799,7 +1927,7 @@ def defectdojo_import_finding(request,pk,ddpk):
     cweDB = DB_CWE.objects.filter(cwe_id=finding_cwe).first() or DB_CWE.objects.filter(cwe_id=0).first()
 
     #Save Finding
-    finding_to_DB = DB_Finding(report=DB_report_query, finding_id=finding_hash_code, status = 'Open', title=finding_title, severity=finding_severity, cvss_vector=finding_cvssv3, cvss_score=finding_cvssv3_score, description=finding_final_description, location=finding_file_path, impact=finding_impact, recommendation=finding_mitigation, references=finding_references, cwe=cweDB)
+    finding_to_DB = DB_Finding(report=DB_report_query, finding_id=finding_hash_code, status = 'Open', title=finding_title, severity=finding_severity, cvss_vector=finding_cvssv3, cvss_score=finding_cvssv3_score, description=finding_final_description, location=finding_file_path, impact=finding_impact, business_impact=finding_business_impact, recommendation=finding_mitigation, references=finding_references, cwe=cweDB)
     finding_to_DB.save()
 
     return redirect('report_view', pk=pk)
@@ -2041,6 +2169,7 @@ def template_add(request):
         form.fields['description'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['location'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['impact'].initial = PETEREPORT_TEMPLATES['initial_text']
+        form.fields['business_impact'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['recommendation'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['references'].initial = PETEREPORT_TEMPLATES['initial_text']
         form.fields['cwe'].initial = '1'
@@ -2117,7 +2246,7 @@ def templateaddreport(request,pk,reportpk):
     # save template in DB
     finding_uuid = uuid.uuid4()
     finding_status = "Open"
-    finding_to_DB = DB_Finding(report=DB_report_query, finding_id=finding_uuid, title=DB_finding_template_query.title, severity=DB_finding_template_query.severity, cvss_vector=DB_finding_template_query.cvss_vector, cvss_score=DB_finding_template_query.cvss_score, description=DB_finding_template_query.description, status=finding_status, location=DB_finding_template_query.location, impact=DB_finding_template_query.impact, recommendation=DB_finding_template_query.recommendation, references=DB_finding_template_query.references, cwe=DB_finding_template_query.cwe, owasp=DB_finding_template_query.owasp)
+    finding_to_DB = DB_Finding(report=DB_report_query, finding_id=finding_uuid, title=DB_finding_template_query.title, severity=DB_finding_template_query.severity, cvss_vector=DB_finding_template_query.cvss_vector, cvss_score=DB_finding_template_query.cvss_score, description=DB_finding_template_query.description, status=finding_status, location=DB_finding_template_query.location, impact=DB_finding_template_query.impact, business_impact=DB_finding_template_query.business_impact, recommendation=DB_finding_template_query.recommendation, references=DB_finding_template_query.references, cwe=DB_finding_template_query.cwe, owasp=DB_finding_template_query.owasp)
 
     finding_to_DB.save()
 

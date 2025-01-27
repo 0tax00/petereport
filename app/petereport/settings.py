@@ -17,6 +17,8 @@ import time
 import os
 from config.startup import *
 from config.petereport_config import PETEREPORT_MARKDOWN, DJANGO_CONFIG, PETEREPORT_TEMPLATES
+import logging
+import logging.config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -129,7 +131,6 @@ LANGUAGES = (
     ('es', _('Spanish')),
     ('fr', _('French')),
     ('pt', _('Portuguese')),
-
 )
 
 # Static files (CSS, JavaScript, Images)
@@ -313,3 +314,47 @@ BLEACH_STRIP_COMMENTS = False
 initApplication()
 
 
+# Configuração de Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # Mantém os loggers existentes
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django_debug.log'),
+            'formatter': 'verbose',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': True,
+        },
+        'preport': {  # Logger específico para seu app 'preport'
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
+# Cria o diretório de logs se não existir
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOGS_DIR):
+    os.makedirs(LOGS_DIR)

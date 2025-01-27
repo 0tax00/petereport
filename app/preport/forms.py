@@ -48,7 +48,7 @@ class NewReportForm(forms.ModelForm):
         today = datetime.date.today().strftime('%Y-%m-%d')
         nowformat = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         model = DB_Report
-        fields = ('product', 'report_id', 'title', 'report_date', 'executive_summary', 'scope', 'outofscope', 'methodology', 'recommendation', 'audit')
+        fields = ('product', 'report_id', 'title', 'report_date', 'executive_summary', 'scope', 'outofscope', 'methodology', 'recommendation', 'narrative', 'audit')
 
         widgets = {
             'report_id': TextInput(attrs={'class': 'form-control', 'type': "text", 'required': "required"}),
@@ -90,7 +90,7 @@ class NewFindingForm(forms.ModelForm):
 
     class Meta:
         model = DB_Finding
-        fields = ('title', 'status', 'severity', 'cvss_score', 'cvss_vector', 'description', 'location', 'poc', 'impact', 'recommendation', 'references', 'cwe', 'owasp')
+        fields = ('title', 'status', 'severity', 'cvss_score', 'cvss_vector', 'description', 'location', 'poc', 'impact', 'business_impact', 'recommendation', 'references', 'cwe', 'owasp')
 
         widgets = {
             'title': TextInput(attrs={'class': 'form-control', 'type': "text", 'required': "required", 'placeholder': _("Finding title")}),
@@ -118,7 +118,7 @@ class NewFindingTemplateForm(forms.ModelForm):
 
     class Meta:
         model = DB_Finding_Template
-        fields = ('title', 'severity', 'cvss_score', 'cvss_vector', 'description', 'location', 'impact', 'recommendation', 'references', 'cwe', 'owasp')
+        fields = ('title', 'severity', 'cvss_score', 'cvss_vector', 'description', 'location', 'impact', 'business_impact', 'recommendation', 'references', 'cwe', 'owasp')
 
         widgets = {
             'title': TextInput(attrs={'class': 'form-control', 'type': "text", 'required': "required", 'placeholder': _("Finding title")}),

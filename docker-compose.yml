@@ -9,6 +9,8 @@ services:
       - ./nginx/petereport.conf:/etc/nginx/conf.d/petereport.conf
       - ./app/petereport/static:/opt/petereport/app/petereport/static
       - ./app/media:/opt/petereport/app/media
+      - ./app:/app 
+      - ./logs:/app/logs 
     ports:
       - 80:80
       - 443:443
@@ -25,10 +27,10 @@ services:
       sleep 1 &&
       pipenv install --deploy --ignore-pipfile --python 3.9 &&
       pip freeze && 
-      pipenv run ./app/manage.py makemigrations &&
-      pipenv run ./app/manage.py migrate &&
-      pipenv run ./app/manage.py loaddata ./app/config/cwe-list.json &&
-      pipenv run ./app/manage.py loaddata ./app/config/owasp-list.json &&
+      pipenv run python ./app/manage.py makemigrations --noinput &&
+      pipenv run python ./app/manage.py migrate --noinput &&
+      pipenv run python ./app/manage.py loaddata ./app/config/cwe-list.json &&
+      pipenv run python ./app/manage.py loaddata ./app/config/owasp-list.json &&
       pipenv run gunicorn --chdir ./app petereport.wsgi:application --timeout 120 --graceful-timeout 60 --bind 0.0.0.0:8000"
     volumes:
       - .:/opt/petereport

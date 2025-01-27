@@ -1,0 +1,49 @@
+---
+title: "{{DB_report_query.title}}"
+product: "{{DB_report_query.product.name}}"
+author: ["{{md_author}}"]
+date: "{{report_date}}"
+subject: "{{md_subject}}"
+subtitle: "{{DB_report_query.report_id}}"
+lang: "{{report_pdf_language}}"
+titlepage: true
+titlepage-color: "483D8B"
+titlepage-text-color: "FFFAFA"
+titlepage-rule-color: "FFFAFA"
+titlepage-rule-height: "{{titlepageruleheight}}"
+titlepage-background: "{{title_background}}"
+page-background: "{{pages_background}}"
+header-left: \textcolor{red}{\textbf{CONFIDENCIAL}}
+book: false
+toc-own-page: true
+code-block-font-size: \scriptsize
+colorlinks: true
+lof: true
+
+pandoc-latex-environment:
+    noteblock: [note]
+    tipblock: [tip]
+    warningblock: [warning]
+    cautionblock: [caution]
+    importantblock: [important]
+    tcolorbox: [box]
+    info-box: [infobox]
+    low-box: [lowbox]
+    warning-box: [mediumbox]
+    error-box: [highbox]
+    critical-box: [criticalbox]
+    highblock: [highnote]
+    mediumblock: [mediumnote]
+    lowblock: [lownote]
+    infoblock: [infonote]
+    debugblock: [debugnote]
+    descriptionblock: [descriptionnote]
+    locationblock: [locationnote]
+    impactblock: [impactnote]
+    business_impactblock: [business_impactnote]
+    recommendationblock: [recommendationnote]
+    referencesblock: [referencesnote]
+    additional_notesblock: [additional_notesnote]
+
+---
+

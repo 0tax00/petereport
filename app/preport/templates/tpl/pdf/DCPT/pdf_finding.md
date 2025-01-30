@@ -3,7 +3,19 @@
 ## {{finding.title|safe}}
 
 ::: {{icon_finding}}
-**{% translate "Severity" %}:** {{severity_color_finding}}
+**{% translate "Severity" %}:** {% if finding.severity == "Critical" %}
+\textcolor{criticalcolor}{Crítica}
+{% elif finding.severity == "High" %}
+\textcolor{highcolor}{Alta}
+{% elif finding.severity == "Medium" %}
+\textcolor{mediumcolor}{Média}
+{% elif finding.severity == "Low" %}
+\textcolor{lowcolor}{Baixa}
+{% elif finding.severity == "Info" %}
+\textcolor{debugcolor}{Informativa}
+{% else %}
+{{ finding.severity }}
+{% endif %}
 
 {% if finding.cvss_score != "0" %}
 **{% translate "CVSS Score" %}:** {{finding.cvss_score|safe}}

@@ -27,7 +27,7 @@ class DB_CWE(models.Model):
 # ---------- OWASP ------------
 
 class DB_OWASP(models.Model):
-	owasp_id = models.IntegerField(blank=False, unique=True)
+	owasp_id = models.CharField(max_length=10, blank=False, unique=True)
 	owasp_year = models.IntegerField(blank=False, unique=False)
 	owasp_name = models.CharField(max_length=255, blank=True)
 	owasp_description = models.TextField(blank=True)

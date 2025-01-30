@@ -15,7 +15,7 @@
     "model": "preport.db_owasp",
     "pk": 2,
     "fields": {
-        "owasp_id": "1",
+        "owasp_id": "A01",
         "owasp_year": "2021",
         "owasp_full_id": "A01:2021",
         "owasp_name": "Broken Access Control",
@@ -27,7 +27,7 @@
     "model": "preport.db_owasp",
     "pk": 3,
     "fields": {
-        "owasp_id": "2",
+        "owasp_id": "A02",
         "owasp_year": "2021",
         "owasp_full_id": "A02:2021",
         "owasp_name": "Cryptographic Failures",
@@ -39,7 +39,7 @@
     "model": "preport.db_owasp",
     "pk": 4,
     "fields": {
-        "owasp_id": "3",
+        "owasp_id": "A03",
         "owasp_year": "2021",
         "owasp_full_id": "A03:2021",
         "owasp_name": "Injection",
@@ -51,7 +51,7 @@
     "model": "preport.db_owasp",
     "pk": 5,
     "fields": {
-        "owasp_id": "4",
+        "owasp_id": "A04",
         "owasp_year": "2021",
         "owasp_full_id": "A04:2021",
         "owasp_name": "Insecure Design",
@@ -63,7 +63,7 @@
     "model": "preport.db_owasp",
     "pk": 6,
     "fields": {
-        "owasp_id": "5",
+        "owasp_id": "A05",
         "owasp_year": "2021",
         "owasp_full_id": "A05:2021",
         "owasp_name": "Security Misconfiguration",
@@ -75,7 +75,7 @@
     "model": "preport.db_owasp",
     "pk": 7,
     "fields": {
-        "owasp_id": "6",
+        "owasp_id": "A06",
         "owasp_year": "2021",
         "owasp_full_id": "A06:2021",
         "owasp_name": "Vulnerable and Outdated Components",
@@ -87,7 +87,7 @@
     "model": "preport.db_owasp",
     "pk": 8,
     "fields": {
-        "owasp_id": "7",
+        "owasp_id": "A07",
         "owasp_year": "2021",
         "owasp_full_id": "A07:2021",
         "owasp_name": "Identification and Authentication Failures",
@@ -99,7 +99,7 @@
     "model": "preport.db_owasp",
     "pk": 9,
     "fields": {
-        "owasp_id": "8",
+        "owasp_id": "A08",
         "owasp_year": "2021",
         "owasp_full_id": "A08:2021",
         "owasp_name": "Software and Data Integrity Failures",
@@ -111,7 +111,7 @@
     "model": "preport.db_owasp",
     "pk": 10,
     "fields": {
-        "owasp_id": "9",
+        "owasp_id": "A09",
         "owasp_year": "2021",
         "owasp_full_id": "A09:2021",
         "owasp_name": "Security Logging and Monitoring Failures",
@@ -123,7 +123,7 @@
     "model": "preport.db_owasp",
     "pk": 11,
     "fields": {
-        "owasp_id": "10",
+        "owasp_id": "A010",
         "owasp_year": "2021",
         "owasp_full_id": "A10:2021",
         "owasp_name": "Server-Side Request Forgery (SSRF)",
@@ -135,7 +135,7 @@
     "model": "preport.db_owasp",
     "pk": 12,
     "fields": {
-        "owasp_id": "11",
+        "owasp_id": "M1",
         "owasp_year": "2024",
         "owasp_full_id": "M1:2024",
         "owasp_name": "Improper Credential Usage",
@@ -147,7 +147,7 @@
     "model": "preport.db_owasp",
     "pk": 13,
     "fields": {
-        "owasp_id": "12",
+        "owasp_id": "M2",
         "owasp_year": "2024",
         "owasp_full_id": "M2:2024",
         "owasp_name": "Inadequate Supply Chain Security",
@@ -159,7 +159,7 @@
     "model": "preport.db_owasp",
     "pk": 14,
     "fields": {
-        "owasp_id": "13",
+        "owasp_id": "M3",
         "owasp_year": "2024",
         "owasp_full_id": "M3:2024",
         "owasp_name": "Insecure Authentication/Authorization",
@@ -171,7 +171,7 @@
     "model": "preport.db_owasp",
     "pk": 15,
     "fields": {
-        "owasp_id": "14",
+        "owasp_id": "M4",
         "owasp_year": "2024",
         "owasp_full_id": "M4:2024",
         "owasp_name": "Insufficient Input/Output Validation",
@@ -183,7 +183,7 @@
     "model": "preport.db_owasp",
     "pk": 16,
     "fields": {
-        "owasp_id": "15",
+        "owasp_id": "M5",
         "owasp_year": "2024",
         "owasp_full_id": "M5:2024",
         "owasp_name": "Insecure Communication",
@@ -195,7 +195,7 @@
     "model": "preport.db_owasp",
     "pk": 17,
     "fields": {
-        "owasp_id": "16",
+        "owasp_id": "M6",
         "owasp_year": "2024",
         "owasp_full_id": "M6:2024",
         "owasp_name": "Inadequate Privacy Controls",
@@ -207,7 +207,7 @@
     "model": "preport.db_owasp",
     "pk": 18,
     "fields": {
-        "owasp_id": "17",
+        "owasp_id": "M7",
         "owasp_year": "2024",
         "owasp_full_id": "M7:2024",
         "owasp_name": "Insufficient Binary Protections",
@@ -219,7 +219,7 @@
     "model": "preport.db_owasp",
     "pk": 19,
     "fields": {
-        "owasp_id": "18",
+        "owasp_id": "M8",
         "owasp_year": "2024",
         "owasp_full_id": "M8:2024",
         "owasp_name": "Security Misconfiguration",
@@ -231,7 +231,7 @@
     "model": "preport.db_owasp",
     "pk": 20,
     "fields": {
-        "owasp_id": "19",
+        "owasp_id": "M9",
         "owasp_year": "2024",
         "owasp_full_id": "M9:2024",
         "owasp_name": "Insecure Data Storage",
@@ -243,12 +243,252 @@
     "model": "preport.db_owasp",
     "pk": 21,
     "fields": {
-        "owasp_id": "20",
+        "owasp_id": "M10",
         "owasp_year": "2024",
         "owasp_full_id": "M10:2024",
         "owasp_name": "Insufficient Cryptography",
         "owasp_description": "Threat Agents\nApplication Specific\n\nThreat agents who exploit insecure cryptography in mobile applications can undermine the confidentiality, integrity, and authenticity of sensitive information. These threat agents include attackers who target cryptographic algorithms or implementations to decrypt sensitive data, malicious insiders who manipulate cryptographic processes or leak encryption keys, state-sponsored actors engaged in cryptanalysis for intelligence purposes, cybercriminals who exploit weak encryption to steal valuable data or conduct financial fraud, and attackers who leverage vulnerabilities in cryptographic protocols or libraries.",
         "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m10-insufficient-cryptography.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 22,
+    "fields": {
+        "owasp_id": "ISR01",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR01:2024",
+        "owasp_name": "Outdated Software",
+        "owasp_description": "It is important to keep software updated. Often, updates include security-relevant patches, meaning if a software isn’t up-to-date, it may contain vulnerabilities in its current version state. These vulnerabilities are often publicly known and can be found easily by security scanners. Unfortunately, many companies and end users fail to keep all their software components up-to-date. Due to the lack of updates and update management, many software components and underlying systems become vulnerable over time, with increasing criticality as time passes by.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR01_2024-Outdated_Software"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 23,
+    "fields": {
+        "owasp_id": "ISR02",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR02:2024",
+        "owasp_name": "Insufficient Threat Detection",
+        "owasp_description": "Threat Detection plays a vital role in cyber defense. In most Cyberattacks, especially internal ones, the first detection of threat actors is too late. Most Cyberattacks get detected once the threat actors perform malicious actions that impact and disturb internal processes or interfere with employee’s work. For example, when ransomware starts to encrypt data on an employee’s computer or an important server. Unfortunately, a detection of a cyberattack in this state is too late. Qualitative threat detection is needed to detect threat actors and malicious activities before they can cause severe damage. Ideally, threat actors should be detected in the initial access phase or, at the latest, in the command and conquer phase.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR02_2024-Insufficient_Threat_Detection"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 24,
+    "fields": {
+        "owasp_id": "ISR03",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR03:2024",
+        "owasp_name": "Insecure Configurations",
+        "owasp_description": "Insecure configurations represent a critical vulnerability category. These vulnerabilities arise when hardware, software, or network components are not properly set up or configured, exposing them to potential cyber threats. Understanding and addressing insecure configurations is essential to fortify an organization’s defenses against cyberattacks. Addressing these vulnerabilities requires a proactive approach involving regular auditing, robust configuration management, and adherence to security best practices throughout an organization.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR03_2024-Insecure_Configurations"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 25,
+    "fields": {
+        "owasp_id": "ISR04",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR04:2024",
+        "owasp_name": "Insecure Resource and User Management",
+        "owasp_description": "A big part and challenge of running an IT infrastructure is managing its resources and users. Even more challenging is secure infrastructure. It is mandatory to plan out the resources and access management, like who should have access to what and which user should have which permissions. Questions like: What type of data needs to be stored where and how, must be asked and answered. Most companies rely on centralized resource and user management tools like Active Directory or Microsoft Entra ID. The management of these complex tools itself is challenging. Many vulnerabilities arise when these tools are rolled out without a proper security concept. Besides that, permission and rights management are often neglected and users or technical users have more permissions than they actually need.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR04_2024-Insecure_Resource_and_User_Management"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 26,
+    "fields": {
+        "owasp_id": "ISR05",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR05:2024",
+        "owasp_name": "Insecure Use of Cryptography",
+        "owasp_description": "Encryption plays an important role in cyber defense. This is well-known for external applications and systems but is often overlooked regarding internal networks and infrastructures. Companies and users have to keep in mind that if they don’t implement sufficient encryption and cryptographic methods on their systems and protocols used in the internal network, an adjacent threat actor may be able to read, modify or inject data into communications and systems. This lack of encryption can lead to data leakage and the compromising of privileged accounts. It is important to remember that a defense line only to the outside doesn’t fully protect the internal systems. As soon as an attacker gains access to the internal network, e.g. via phishing, the outside defense line is mostly obsolete. That is why the security of internal infrastructures has to be as secure as an external system or even more.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR05_2024-Insecure_Use_of_Cryptography"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 27,
+    "fields": {
+        "owasp_id": "ISR06",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR06:2024",
+        "owasp_name": "Insecure Network Access Management",
+        "owasp_description": "Network Access Management is a fundamental aspect of the architecture of internal infrastructures and the access control regulations. A qualitative Network Access Management prevents a variety of attacks and can reduce the impact of cyberattacks as well as the movement of threat actors inside the internal infrastructure. A more critical and severe risk is the lack of network separation, which would restrict access from one part of the internal infrastructure to others. Often, companies don’t prevent threat actors from accessing the internal network if the attacker manages to get physical access to a network port or Wi-Fi nearby. Additionally, traffic should be supervised and regulated context-based closely to the application layers for communication paths that need to be allowed.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR06_2024-Insecure_Network_Access_Management"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 28,
+    "fields": {
+        "owasp_id": "ISR07",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR07:2024",
+        "owasp_name": "Insecure Authentication Methods and Default Credentials",
+        "owasp_description": "Passwords are still a fundamental part of cybersecurity, and many Identity and Access Management (IAM) Systems rely on username and password authentication. Insecure Authentication Methods are a common vulnerability in cybersecurity, referring to passwords that are easy to guess or crack due to their simplicity, predictability, or lack of complexity (length). Default credentials preconfigured on hardware devices or software applications by manufacturers or vendors are often left unchanged by users or administrators, creating a security vulnerability.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR07_2024-Insecure_Authentication_Methods_and_Default_Credentials"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 29,
+    "fields": {
+        "owasp_id": "ISR08",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR08:2024",
+        "owasp_name": "Information Leakage",
+        "owasp_description": "Information leakage occurs when confidential or sensitive data is unintentionally or maliciously exposed, either within or outside an organization, often due to inadequate security measures or personnel negligence. This leakage can manifest in various forms, such as improper disposal of documents, misconfigured permissions on network shares, or unsecured communications channels. Moreover, it could result from insider threats where disgruntled employees or malicious insiders intentionally exfiltrate data for personal gain or sabotage. This threat necessitates a holistic approach encompassing robust access control, data encryption, regular audits, and a culture of security awareness among employees.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR08_2024-Information_Leakage"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 30,
+    "fields": {
+        "owasp_id": "ISR09",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR09:2024",
+        "owasp_name": "Insecure Access to Resources and Management Components",
+        "owasp_description": "Lack of proper access controls and permissions allows unauthorized individuals or programs to access sensitive data, systems, or physical locations. This vulnerability manifests in misconfigured access policies, overly permissive settings, or improper authentication mechanisms.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR09_2024-Insecure_Access_to_Resources_and_Management_Components"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 31,
+    "fields": {
+        "owasp_id": "ISR10",
+        "owasp_year": "2024",
+        "owasp_full_id": "ISR10:2024",
+        "owasp_name": "Insufficient Asset Management and Documentation",
+        "owasp_description": "Insufficient asset management refers to the shortcomings in an organization’s ability to accurately identify, track, and document all its hardware and software assets, as well as the associated configurations, dependencies, and lifecycles. It encompasses the lack of an organized and up-to-date inventory of IT assets, which is essential for effective security, compliance, and operational efficiency. It enables an easy and fast mapping of affected resources and an accurate incident response.",
+        "owasp_url": "https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2024/ISR10_2024-Insufficient_Asset_Management_and_Documentation"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 32,
+    "fields": {
+        "owasp_id": "API1",
+        "owasp_year": "2023",
+        "owasp_full_id": "API1:2023",
+        "owasp_name": "Broken Object Level Authorization",
+        "owasp_description": "APIs tend to expose endpoints that handle object identifiers, creating a wide attack surface of Object Level Access Control issues. Object level authorization checks should be considered in every function that accesses a data source using an ID from the user.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 33,
+    "fields": {
+        "owasp_id": "API2",
+        "owasp_year": "2023",
+        "owasp_full_id": "API2:2023",
+        "owasp_name": "Broken Authentication",
+        "owasp_description": "Authentication mechanisms are often implemented incorrectly, allowing attackers to compromise authentication tokens or to exploit implementation flaws to assume other user's identities temporarily or permanently. Compromising a system's ability to identify the client/user, compromises API security overall.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 34,
+    "fields": {
+        "owasp_id": "API3",
+        "owasp_year": "2023",
+        "owasp_full_id": "API3:2023",
+        "owasp_name": "Broken Object Property Level Authorization",
+        "owasp_description": "This category combines API3:2019 Excessive Data Exposure and API6:2019 - Mass Assignment, focusing on the root cause: the lack of or improper authorization validation at the object property level. This leads to information exposure or manipulation by unauthorized parties.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 35,
+    "fields": {
+        "owasp_id": "API4",
+        "owasp_year": "2023",
+        "owasp_full_id": "API4:2023",
+        "owasp_name": "Unrestricted Resource Consumption",
+        "owasp_description": "Satisfying API requests requires resources such as network bandwidth, CPU, memory, and storage. Other resources such as emails/SMS/phone calls or biometrics validation are made available by service providers via API integrations, and paid for per request. Successful attacks can lead to Denial of Service or an increase of operational costs.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 36,
+    "fields": {
+        "owasp_id": "API5",
+        "owasp_year": "2023",
+        "owasp_full_id": "API5:2023",
+        "owasp_name": "Broken Function Level Authorization",
+        "owasp_description": "Complex access control policies with different hierarchies, groups, and roles, and an unclear separation between administrative and regular functions, tend to lead to authorization flaws. By exploiting these issues, attackers can gain access to other users’ resources and/or administrative functions.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 37,
+    "fields": {
+        "owasp_id": "API6",
+        "owasp_year": "2023",
+        "owasp_full_id": "API6:2023",
+        "owasp_name": "Unrestricted Access to Sensitive Business Flows",
+        "owasp_description": "APIs vulnerable to this risk expose a business flow - such as buying a ticket, or posting a comment - without compensating for how the functionality could harm the business if used excessively in an automated manner. This doesn't necessarily come from implementation bugs.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 38,
+    "fields": {
+        "owasp_id": "API7",
+        "owasp_year": "2023",
+        "owasp_full_id": "API7:2023",
+        "owasp_name": "Server Side Request Forgery",
+        "owasp_description": "Server-Side Request Forgery (SSRF) flaws can occur when an API is fetching a remote resource without validating the user-supplied URI. This enables an attacker to coerce the application to send a crafted request to an unexpected destination, even when protected by a firewall or a VPN.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa7-server-side-request-forgery/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 39,
+    "fields": {
+        "owasp_id": "API8",
+        "owasp_year": "2023",
+        "owasp_full_id": "API8:2023",
+        "owasp_name": "Security Misconfiguration",
+        "owasp_description": "APIs and the systems supporting them typically contain complex configurations, meant to make the APIs more customizable. Software and DevOps engineers can miss these configurations, or don't follow security best practices when it comes to configuration, opening the door for different types of attacks.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa8-security-misconfiguration/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 40,
+    "fields": {
+        "owasp_id": "API9",
+        "owasp_year": "2023",
+        "owasp_full_id": "API9:2023",
+        "owasp_name": "Improper Inventory Management",
+        "owasp_description": "APIs tend to expose more endpoints than traditional web applications, making proper and updated documentation highly important. A proper inventory of hosts and deployed API versions also are important to mitigate issues such as deprecated API versions and exposed debug endpoints.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xa9-improper-inventory-management/"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 41,
+    "fields": {
+        "owasp_id": "API10",
+        "owasp_year": "2023",
+        "owasp_full_id": "API10:2023",
+        "owasp_name": "Unsafe Consumption of APIs",
+        "owasp_description": "Developers tend to trust data received from third-party APIs more than user input, and so tend to adopt weaker security standards. In order to compromise APIs, attackers go after integrated third-party services instead of trying to compromise the target API directly.",
+        "owasp_url": "https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis/"
     }
 }
 ]

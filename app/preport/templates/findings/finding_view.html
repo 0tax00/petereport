@@ -83,14 +83,23 @@
                           </div>
                         </div>
                       </div>
+                    
                       <div class="col-12 col-sm-4">
                         <div class="info-box bg-light">
-                          <div class="info-box-content">
-                            <span class="info-box-number text-center text-muted">{% translate "Status" %}</span>
-                            <span class="info-box-text text-center text-muted mb-0">{{ finding.status | safe | bleach}}<span>
-                          </div>
+                            <div class="info-box-content">
+                                <span class="info-box-number text-center text-muted">{% translate "Status" %}</span>
+                                <span class="info-box-text text-center text-muted mb-0">
+                                    {% if finding.status == "Open" %}
+                                        {% translate "Open" %}
+                                    {% elif finding.status == "Closed" %}
+                                        {% translate "Closed" %}
+                                    {% else %}
+                                        {{ finding.status | safe | bleach }}
+                                    {% endif %}
+                                </span>
+                            </div>
                         </div>
-                      </div>
+                    </div>
 
                       <div class="col-12 col-sm-4">
                         <div class="info-box bg-light">

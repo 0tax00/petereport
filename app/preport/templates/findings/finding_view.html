@@ -166,26 +166,27 @@
 
                       <div class="col-12 col-sm-3">
                         <div class="info-box bg-light">
-                          <div class="info-box-content">
-                            <span class="info-box-number text-center text-muted">{% translate "Severity" %}</span>
-                            <span class="info-box-text text-center text-muted mb-0">
-                                {% if finding.severity == "Critical" %}
-                                      <span><b><font color="#cc0000">{{finding.severity| safe | bleach}}</font></b></span>
-                                  {% elif finding.severity == "High" %}
-                                      <span><b><font color="#ff403d">{{finding.severity| safe | bleach}}</font></b></span>
-                                  {% elif finding.severity == "Medium" %}
-                                      <span><b><font color="#fc7f03">{{finding.severity| safe | bleach}}</font></b></span>
-                                  {% elif finding.severity == "Low" %}
-                                      <span><b><font color="#05b04f">{{finding.severity| safe | bleach}}</font></b></span>
-                                  {% elif finding.severity == "Info" %}
-                                      <span><b><font color="#45a7f7">{{finding.severity| safe | bleach}}</font></b></span>
-                                  {% else %}
-                                      <span><b>{{ finding.cvss_score | safe | bleach}} - {{finding.severity | safe | bleach}}</b></span> ({% translate "will not appear in the report" %})
-                                {% endif %}
-                          </span>
-                          </div>
+                            <div class="info-box-content">
+                                <span class="info-box-number text-center text-muted">{% translate "Severity" %}</span>
+                                <span class="info-box-text text-center text-muted mb-0">
+                                    {% if finding.severity == "Critical" %}
+                                        <span><b><font color="#cc0000">{% translate "Critical" %}</font></b></span>
+                                    {% elif finding.severity == "High" %}
+                                        <span><b><font color="#ff403d">{% translate "High" %}</font></b></span>
+                                    {% elif finding.severity == "Medium" %}
+                                        <span><b><font color="#fc7f03">{% translate "Medium" %}</font></b></span>
+                                    {% elif finding.severity == "Low" %}
+                                        <span><b><font color="#05b04f">{% translate "Low" %}</font></b></span>
+                                    {% elif finding.severity == "Info" %}
+                                        <span><b><font color="#45a7f7">{% translate "Info" %}</font></b></span>
+                                    {% else %}
+                                        <span><b>{{ finding.cvss_score | safe | bleach}} - {% translate finding.severity %}</b></span> 
+                                        ({% translate "will not appear in the report" %})
+                                    {% endif %}
+                                </span>
+                            </div>
                         </div>
-                      </div>
+                    </div>
 
 
                     </div>

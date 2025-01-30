@@ -907,7 +907,7 @@ msgstr "Produtos DefectDojo"
 
 #: preport/templates/defectdojo/defectdojo_products.html:80
 msgid "Import All Findings"
-msgstr "Importar todos os Vulnerabilidades"
+msgstr "Importar todas as Vulnerabilidades"
 
 #: preport/templates/defectdojo/defectdojo_products.html:81
 msgid "View Findings"
@@ -1393,7 +1393,7 @@ msgstr "Apagar produto?"
 
 #: preport/templates/products/product_view.html:7
 msgid "Product Details"
-msgstr "Pormenores do produto"
+msgstr "Detalhes do produto"
 
 #: preport/templates/products/product_view.html:74
 msgid "Medium Severity Finding"

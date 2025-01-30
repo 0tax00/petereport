@@ -423,7 +423,7 @@ msgstr "Ações"
 #: preport/templates/reports/report_view.html:646
 #: preport/templates/reports/report_view.html:774
 msgid "View"
-msgstr "Ver"
+msgstr "Vizualizar"
 
 #: preport/templates/appendix/reportappendix.html:91
 #: preport/templates/attackflow/reportattackflow.html:102
@@ -1053,8 +1053,6 @@ msgstr "Prova de Conceito"
 
 #: preport/templates/findings/finding_view.html:318
 #: preport/templates/findings/template_view.html:246
-#: preport/templates/reports/report_add.html:98
-#: preport/templates/reports/report_view.html:547
 #: preport/templates/tpl/html/default/html_finding.md:52
 #: preport/templates/tpl/jupyter/default/finding.ipynb:25
 #: preport/templates/tpl/markdown/default/md_finding.md:31
@@ -1598,6 +1596,8 @@ msgstr "No Escopo"
 #: preport/templates/tpl/markdown/default/md_report.md:46
 #: preport/templates/tpl/pdf/background_example/pdf_report.md:37
 #: preport/templates/tpl/pdf/default/pdf_report.md:39
+#: preport/templates/reports/report_add.html:98
+#: preport/templates/reports/report_view.html
 msgid "Recommendations"
 msgstr "Recomendações"
 

@@ -53,7 +53,7 @@ msgstr "Nome do relatório"
 
 #: preport/forms.py:75 preport/forms.py:109
 msgid "(Select severity)"
-msgstr "Seleccionar a Gravidade"
+msgstr "Seleccionar a Severidade"
 
 #: preport/forms.py:76 preport/forms.py:110
 #: preport/templates/home/index.html:467
@@ -63,6 +63,7 @@ msgstr "Seleccionar a Gravidade"
 #: preport/templates/tpl/pdf/default
 #: preport/templates/tpl/pdf/DCPT
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "Critical"
 msgstr "Crítica"
 
@@ -74,6 +75,7 @@ msgstr "Crítica"
 #: preport/templates/tpl/pdf/default
 #: preport/templates/tpl/pdf/DCPT
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "High"
 msgstr "Alta"
 
@@ -85,6 +87,7 @@ msgstr "Alta"
 #: preport/templates/tpl/pdf/default
 #: preport/templates/tpl/pdf/DCPT
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "Medium"
 msgstr "Média"
 
@@ -96,6 +99,7 @@ msgstr "Média"
 #: preport/templates/tpl/pdf/default
 #: preport/templates/tpl/pdf/DCPT
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "Low"
 msgstr "Baixa"
 
@@ -106,12 +110,14 @@ msgstr "Baixa"
 #: preport/templates/tpl/pdf/default
 #: preport/templates/tpl/pdf/DCPT
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "Info"
 msgstr "Informativa"
 
 #: preport/forms.py:81 preport/forms.py:115
 #: preport/templates/reports/report_view.html:201
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "None"
 msgstr "Nenhum"
 
@@ -122,12 +128,14 @@ msgstr "Selecionar estado"
 #: preport/forms.py:86 preport/templates/home/index.html:518
 #: preport/templates/reports/report_view.html:1446
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "Open"
 msgstr "Aberto"
 
 #: preport/forms.py:87 preport/templates/home/index.html:519
 #: preport/templates/reports/report_view.html:1447
 #: preport/templates/findings/finding_view.html:399
+#: preport/templates/findings/findings_list.html:58
 msgid "Closed"
 msgstr "Encerrado"
 
@@ -184,7 +192,7 @@ msgstr "Selecione um grupo"
 
 #: preport/forms.py:168
 msgid "E-mail address"
-msgstr "Endereço de Correio Electrónico"
+msgstr "Endereço de E-mail"
 
 #: preport/forms.py:176 preport/forms.py:182
 msgid "Username"
@@ -486,12 +494,12 @@ msgstr "Deletar"
 #: preport/templates/reports/report_view.html:897
 #: preport/templates/reports/report_view.html:991
 msgid "Are you sure?"
-msgstr "Tem a certeza?"
+msgstr "Tem certeza?"
 
 #: preport/templates/appendix/reportappendix.html:109
 #: preport/templates/reports/report_view.html:795
 msgid "Delete appendix"
-msgstr "suprimir anexo 8"
+msgstr "Deletar Apêndice"
 
 #: preport/templates/appendix/reportappendix.html:112
 #: preport/templates/attackflow/reportattackflow.html:123
@@ -524,7 +532,7 @@ msgstr "Fechar"
 #: preport/templates/appendix/reportappendix.html:113
 #: preport/templates/reports/report_view.html:799
 msgid "Delete Appendix"
-msgstr "suprimir anexo 8"
+msgstr "Deletar Apêndice"
 
 #: preport/templates/attackflow/attackflow_add.html:5
 #: preport/templates/attackflow/attackflow_edit.html:5
@@ -679,7 +687,7 @@ msgstr "Grupo"
 
 #: preport/templates/configuration/user_list.html:59
 msgid "Admin"
-msgstr "Adm"
+msgstr "Admin"
 
 #: preport/templates/configuration/user_list.html:128
 msgid "Delete User"
@@ -765,7 +773,10 @@ msgstr "Produto"
 #: preport/templates/customers/customer_view.html:90
 #: preport/templates/products/product_view.html:88
 msgid "Critical/High Severity Finding"
-msgstr "Vulnerabilidade de Gravidade Crítica/Alta"
+msgid_plural "Critical/High Severity Findings"
+msgstr[0] "Vulnerabilidade de Severidade Crítica/Alta"
+msgstr[1] "Vulnerabilidades de Severidade Crítica/Alta"
+
 
 #: preport/templates/customers/customer_view.html:129
 msgid "Contact Email"
@@ -900,7 +911,7 @@ msgstr "Importar todos os Vulnerabilidades"
 
 #: preport/templates/defectdojo/defectdojo_products.html:81
 msgid "View Findings"
-msgstr "Ver Vulnerabilidades"
+msgstr "Vizualizar Vulnerabilidades"
 
 #: preport/templates/deliverable/deliverable_list.html:7
 #: preport/templates/deliverable/deliverable_list.html:19
@@ -1386,7 +1397,10 @@ msgstr "Pormenores do produto"
 
 #: preport/templates/products/product_view.html:74
 msgid "Medium Severity Finding"
-msgstr "Vulnerabilidade de Gravidade Média"
+msgid_plural "Medium Severity Findings"
+msgstr[0] "Vulnerabilidade de Severidade Média"
+msgstr[1] "Vulnerabilidades de Severidade Média"
+
 
 #: preport/templates/products/product_view.html:199
 #: preport/templates/products/product_view.html:203
@@ -1520,7 +1534,7 @@ msgstr "Data de criação"
 #: preport/templates/reports/report_view.html:315
 #: preport/templates/tpl/jupyter/default/report.ipynb:44
 msgid "Breakdown by Severity"
-msgstr "Discriminação por Gravidade"
+msgstr "Discriminação por Severidade"
 
 #: preport/templates/reports/report_view.html:347
 msgid "Breakdown by CWE Categories"

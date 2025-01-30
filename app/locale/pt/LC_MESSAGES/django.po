@@ -111,6 +111,7 @@ msgstr "Baixa"
 #: preport/templates/tpl/pdf/DCPT
 #: preport/templates/findings/finding_view.html:399
 #: preport/templates/findings/findings_list.html:58
+#: preport/templates/tpl/pdf/default/pdf_finding.md
 msgid "Info"
 msgstr "Informativa"
 
@@ -1614,6 +1615,7 @@ msgid "Additional notes"
 msgstr "Notas adicionais"
 
 #: preport/templates/tpl/jupyter/default/report.ipynb:41
+#: preport/templates/tpl/pdf/default/pdf_finding.md
 msgid "Informational"
 msgstr "Informativo"
 

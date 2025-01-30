@@ -71,7 +71,15 @@
             <div class="inner">
               <h3>{{count_product_findings_medium}}</h3>
 
-              <p>{% translate "Medium Severity Finding" %}{{ count_product_findings_medium|pluralize:"es" }}</p>
+              <p>{% if LANGUAGE_CODE == "pt" %}
+                {% if count_product_findings_medium == 1 %}
+                    <p>Vulnerabilidade de Severidade Média</p>
+                {% else %}
+                    <p>Vulnerabilidades de Severidade Média</p>
+                {% endif %}
+            {% else %}
+                <p>{% blocktrans count count=count_product_findings_medium %}Medium Severity Finding{% plural %}Medium Severity Findings{% endblocktrans %}</p>
+            {% endif %}</p>
             </div>
             <div class="icon">
               <i class="fa fa-exclamation-triangle"></i>
@@ -85,7 +93,15 @@
             <div class="inner">
               <h3>{{count_product_findings_critical_high}}</h3>
 
-              <p>{% translate "Critical/High Severity Finding" %}{{ count_product_findings_critical_high|pluralize:"es" }}</p>
+              <p>{% if LANGUAGE_CODE == "pt" %}
+                {% if count_product_findings_critical_high == 1 %}
+                    <p>Vulnerabilidade de Severidade Crítica/Alta</p>
+                {% else %}
+                    <p>Vulnerabilidades de Severidade Crítica/Alta</p>
+                {% endif %}
+            {% else %}
+                <p>{% blocktrans count count=count_product_findings_critical_high %}Critical/High Severity Finding{% plural %}Critical/High Severity Findings{% endblocktrans %}</p>
+            {% endif %}</p>
             </div>
             <div class="icon">
               <i class="fas fa-radiation-alt"></i>

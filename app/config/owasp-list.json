@@ -130,5 +130,125 @@
         "owasp_description": "SSRF flaws occur whenever a web application is fetching a remote resource without validating the user-supplied URL. It allows an attacker to coerce the application to send a crafted request to an unexpected destination, even when protected by a firewall, VPN, or another type of network access control list (ACL). As modern web applications provide end-users with convenient features, fetching a URL becomes a common scenario. As a result, the incidence of SSRF is increasing. Also, the severity of SSRF is becoming higher due to cloud services and the complexity of architectures.",
         "owasp_url": "https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/"
     }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 12,
+    "fields": {
+        "owasp_id": "11",
+        "owasp_year": "2024",
+        "owasp_full_id": "M1:2024",
+        "owasp_name": "Improper Credential Usage",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nThreat agents exploiting hardcoded credentials and improper credential usage in mobile applications can include automated attacks using publicly available or custom-built tools. Such agents could potentially locate and exploit hardcoded credentials or exploit weaknesses due to improper credential usage.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m1-improper-credential-usage.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 13,
+    "fields": {
+        "owasp_id": "12",
+        "owasp_year": "2024",
+        "owasp_full_id": "M2:2024",
+        "owasp_name": "Inadequate Supply Chain Security",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nAn attacker can manipulate application functionality by exploiting vulnerabilities in the mobile app supply chain. For example, an attacker can insert malicious code into the mobile app’s codebase or modify the code during the build process to introduce backdoors, spyware, or other malicious code.\n\nThis can allow the attacker to steal data, spy on users, or take control of the mobile device. Moreover, an attacker can exploit vulnerabilities in third-party software libraries, SDKs, vendors, or hardcoded credentials to gain access to the mobile app or the backend servers.\n\nThis can lead to unauthorized data access or manipulation, denial of service, or complete takeover of the mobile app or device.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m2-inadequate-supply-chain-security.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 14,
+    "fields": {
+        "owasp_id": "13",
+        "owasp_year": "2024",
+        "owasp_full_id": "M3:2024",
+        "owasp_name": "Insecure Authentication/Authorization",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nThreat agents that exploit authentication and authorization vulnerabilities typically do so through automated attacks that use available or custom-built tools.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m3-insecure-authentication-authorization.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 15,
+    "fields": {
+        "owasp_id": "14",
+        "owasp_year": "2024",
+        "owasp_full_id": "M4:2024",
+        "owasp_name": "Insufficient Input/Output Validation",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nInsufficient validation and sanitization of data from external sources, such as user inputs or network data, in a mobile application can introduce severe security vulnerabilities. Mobile apps that fail to properly validate and sanitize such data are at risk of being exploited through attacks specific to mobile environments, including SQL injection, Command Injection, and cross-site scripting (XSS) attacks.\n\nThese vulnerabilities can have detrimental consequences, including unauthorized access to sensitive data, manipulation of app functionality, and potential compromise of the entire mobile system.\n\nInadequate output validation can result in data corruption or presentation vulnerabilities, allowing malicious actors to inject malicious code or manipulate sensitive information displayed to users.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m4-insufficient-input-output-validation.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 16,
+    "fields": {
+        "owasp_id": "15",
+        "owasp_year": "2024",
+        "owasp_full_id": "M5:2024",
+        "owasp_name": "Insecure Communication",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nMost modern mobile applications exchange data with one or more remote servers. When the data transmission takes place, it typically goes through the mobile device’s carrier network and the internet, a threat agent listening on the wire can intercept and modify the data if it is transmitted in plaintext or using a deprecated encryption protocol. Threat agents might have different motives such as stealing sensitive information, conducting espionage, identity theft, and more. The following threat agents exist:\n\n- An adversary that shares your local network (compromised or monitored Wi-Fi);\n- Rogue carrier or network devices (routers, cell towers, proxy’s, etc);\n- Malware on your mobile device.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m5-insecure-communication.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 17,
+    "fields": {
+        "owasp_id": "16",
+        "owasp_year": "2024",
+        "owasp_full_id": "M6:2024",
+        "owasp_name": "Inadequate Privacy Controls",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nPrivacy controls are concerned with protecting Personally Identifiable Information (PII), e.g., names and addresses, credit card information, e-mail and IP addresses, information about health, religion, sexuality, and political opinions.\n\nThis information is valuable to attackers for several reasons. For example, an attacker could:\n\n- Impersonate the victim to commit fraud\n- Misuse the victim’s payment data\n- Blackmail the victim with sensitive information\n- Harm the victim by destroying or manipulating the victim’s critical data\n\nIn general, PII could either be leaked (i.e., a violation of confidentiality), manipulated (violation of integrity), or destroyed/blocked (violation of availability).",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m6-inadequate-privacy-controls.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 18,
+    "fields": {
+        "owasp_id": "17",
+        "owasp_year": "2024",
+        "owasp_full_id": "M7:2024",
+        "owasp_name": "Insufficient Binary Protections",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nAttackers who target app binaries are motivated by various reasons.\n\nThe binary could contain valuable secrets, such as commercial API keys or hardcoded cryptographic secrets that an attacker could misuse. In addition, the code in the binary could be valuable on its own, for example, because it contains critical business logic or pre-trained AI models. Some attackers might also not target the app itself but use it to explore potential weaknesses of the corresponding backend to prepare for an attack.\n\nBesides collecting information, attackers could also manipulate app binaries to access paid features for free or to bypass other security checks. In the worst case, popular apps could be modified to contain malicious code and be distributed via third-party app stores or under a new name to exploit unsuspecting users. One common attack example is reconfiguring the payment identifiers in an app, repackaging it, and distributing it via app stores. Then, when users download this unauthorized copy from the app store, the attacker receives the payments instead of the original provider.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m7-insufficient-binary-protection.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 19,
+    "fields": {
+        "owasp_id": "18",
+        "owasp_year": "2024",
+        "owasp_full_id": "M8:2024",
+        "owasp_name": "Security Misconfiguration",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nSecurity misconfiguration in mobile apps refers to the improper configuration of security settings, permissions, and controls that can lead to vulnerabilities and unauthorized access. Threat agents who can exploit security misconfigurations are attackers aiming to gain unauthorized access to sensitive data or perform malicious actions. Threat agents can be an attacker with physical access to the device, a malicious app on the device that exploits security misconfiguration to execute unauthorized actions on the target vulnerable application context.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m8-security-misconfiguration.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 20,
+    "fields": {
+        "owasp_id": "19",
+        "owasp_year": "2024",
+        "owasp_full_id": "M9:2024",
+        "owasp_name": "Insecure Data Storage",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nInsecure data storage in a mobile application can attract various threat agents who aim to exploit the vulnerabilities and gain unauthorized access to sensitive information. These threat agents include skilled adversaries, malicious insiders, state-sponsored actors, cybercriminals, script kiddies, data brokers, competitors, industrial spies, and activists or hacktivists with ideological motives.\n\nThese threat agents exploit vulnerabilities like weak encryption, insufficient data protection, insecure data storage mechanisms, and improper handling of user credentials. It is crucial for mobile app developers and organisations to implement strong security measures, such as robust encryption, secure data storage practices, and adherence to best practices for mobile application security, to mitigate the risks associated with insecure data storage.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m9-insecure-data-storage.html"
+    }
+},
+{
+    "model": "preport.db_owasp",
+    "pk": 21,
+    "fields": {
+        "owasp_id": "20",
+        "owasp_year": "2024",
+        "owasp_full_id": "M10:2024",
+        "owasp_name": "Insufficient Cryptography",
+        "owasp_description": "Threat Agents\nApplication Specific\n\nThreat agents who exploit insecure cryptography in mobile applications can undermine the confidentiality, integrity, and authenticity of sensitive information. These threat agents include attackers who target cryptographic algorithms or implementations to decrypt sensitive data, malicious insiders who manipulate cryptographic processes or leak encryption keys, state-sponsored actors engaged in cryptanalysis for intelligence purposes, cybercriminals who exploit weak encryption to steal valuable data or conduct financial fraud, and attackers who leverage vulnerabilities in cryptographic protocols or libraries.",
+        "owasp_url": "https://owasp.org/www-project-mobile-top-10/2023-risks/m10-insufficient-cryptography.html"
+    }
 }
 ]

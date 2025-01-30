@@ -60,6 +60,9 @@ msgstr "Seleccionar a Gravidade"
 #: preport/templates/reports/report_view.html:143
 #: preport/templates/reports/report_view.html:1396
 #: preport/templates/tpl/jupyter/default/report.ipynb:41
+#: preport/templates/tpl/pdf/default
+#: preport/templates/tpl/pdf/DCPT
+#: preport/templates/findings/finding_view.html:399
 msgid "Critical"
 msgstr "Crítica"
 
@@ -68,6 +71,9 @@ msgstr "Crítica"
 #: preport/templates/reports/report_view.html:155
 #: preport/templates/reports/report_view.html:1397
 #: preport/templates/tpl/jupyter/default/report.ipynb:41
+#: preport/templates/tpl/pdf/default
+#: preport/templates/tpl/pdf/DCPT
+#: preport/templates/findings/finding_view.html:399
 msgid "High"
 msgstr "Alta"
 
@@ -76,6 +82,9 @@ msgstr "Alta"
 #: preport/templates/reports/report_view.html:167
 #: preport/templates/reports/report_view.html:1398
 #: preport/templates/tpl/jupyter/default/report.ipynb:41
+#: preport/templates/tpl/pdf/default
+#: preport/templates/tpl/pdf/DCPT
+#: preport/templates/findings/finding_view.html:399
 msgid "Medium"
 msgstr "Média"
 
@@ -84,6 +93,9 @@ msgstr "Média"
 #: preport/templates/reports/report_view.html:178
 #: preport/templates/reports/report_view.html:1399
 #: preport/templates/tpl/jupyter/default/report.ipynb:41
+#: preport/templates/tpl/pdf/default
+#: preport/templates/tpl/pdf/DCPT
+#: preport/templates/findings/finding_view.html:399
 msgid "Low"
 msgstr "Baixa"
 
@@ -91,11 +103,15 @@ msgstr "Baixa"
 #: preport/templates/home/index.html:471
 #: preport/templates/reports/report_view.html:190
 #: preport/templates/reports/report_view.html:1400
+#: preport/templates/tpl/pdf/default
+#: preport/templates/tpl/pdf/DCPT
+#: preport/templates/findings/finding_view.html:399
 msgid "Info"
 msgstr "Informativa"
 
 #: preport/forms.py:81 preport/forms.py:115
 #: preport/templates/reports/report_view.html:201
+#: preport/templates/findings/finding_view.html:399
 msgid "None"
 msgstr "Nenhum"
 
@@ -105,13 +121,15 @@ msgstr "Selecionar estado"
 
 #: preport/forms.py:86 preport/templates/home/index.html:518
 #: preport/templates/reports/report_view.html:1446
+#: preport/templates/findings/finding_view.html:399
 msgid "Open"
 msgstr "Aberto"
 
 #: preport/forms.py:87 preport/templates/home/index.html:519
 #: preport/templates/reports/report_view.html:1447
+#: preport/templates/findings/finding_view.html:399
 msgid "Closed"
-msgstr "Fechado"
+msgstr "Encerrado"
 
 #: preport/forms.py:90 preport/forms.py:120
 msgid "Critical/High/Medium/Low/Info/None"
@@ -1279,11 +1297,11 @@ msgstr "Detalhamento geral baseado nos dez principais riscos de segurança de ap
 #: preport/templates/home/index.html:190
 #: preport/templates/reports/report_view.html:431
 msgid "Vulnerabilities by severity"
-msgstr "Vulnerabilidades por gravidade"
+msgstr "Vulnerabilidades por Criticidade"
 
 #: preport/templates/home/index.html:215
 msgid "Top 10 risk findings"
-msgstr "As 10 principais Vulnerabilidades"
+msgstr "As 10 Principais Vulnerabilidades Identificadas"
 
 #: preport/templates/home/index.html:234
 msgid "Risk Score"

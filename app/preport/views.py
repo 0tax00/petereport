@@ -216,13 +216,20 @@ def index(request):
         if finding.cwe and finding.cwe.cwe_id > 0:
             finding_cwe = f"CWE-{finding.cwe.cwe_id} - {finding.cwe.cwe_name}"
             cwe_rows.append(finding_cwe)
-        if finding.owasp and finding.owasp.owasp_id > 0:
-            prefix = 'A'
-            if finding.owasp.owasp_id < 10:
-                prefix += '0'
-            finding_owasp = f"{prefix}{finding.owasp.owasp_id}:{finding.owasp.owasp_year} {finding.owasp.owasp_name}"
-            owasp_rows.append(finding_owasp)
+        if finding.owasp and finding.owasp.owasp_id:
+            try:
+                owasp_num = int(finding.owasp.owasp_id)
+                prefix = 'A'
+                if owasp_num < 10:
+                    prefix += '0'
+                else:
+                    prefix = 'A'
+                finding_owasp = f"{prefix}{owasp_num}:{finding.owasp.owasp_year} {finding.owasp.owasp_name}"
+            except ValueError:
+                # Caso owasp_id seja como "API1", "ISR03", etc.
+                finding_owasp = f"{finding.owasp.owasp_id}:{finding.owasp.owasp_year} {finding.owasp.owasp_name}"
 
+    owasp_rows.append(finding_owasp)
     cwe_cat = Counter(cwe_rows)
     cwe_categories = []
     owasp_cat = Counter(owasp_rows)

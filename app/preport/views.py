@@ -228,8 +228,9 @@ def index(request):
             except ValueError:
                 # Caso owasp_id seja como "API1", "ISR03", etc.
                 finding_owasp = f"{finding.owasp.owasp_id}:{finding.owasp.owasp_year} {finding.owasp.owasp_name}"
+    
+            owasp_rows.append(finding_owasp)
 
-    owasp_rows.append(finding_owasp)
     cwe_cat = Counter(cwe_rows)
     cwe_categories = []
     owasp_cat = Counter(owasp_rows)
@@ -2553,4 +2554,3 @@ def deliverable_delete(request):
         return HttpResponse('{"status":"success"}', content_type='application/json')
     else:
         return HttpResponseServerError('{"status":"fail"}', content_type='application/json')
-
